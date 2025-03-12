@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Analytics - Aadhar AI</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Aadhar Fraud Detection System" name="keywords">
+    <meta content="Analytics dashboard for Aadhar card verification" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Bootstrap Stylesheet -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Same style as other pages -->
+    <style>
+        :root {
+            --primary: #3F4259;
+            --secondary: #6C7293;
+            --light: #F5F6FA;
+            --dark: #2A2C3F;
+            --accent: #8E92BC;
+            --text: #444444;
+            --text-light: #777777;
+            --border: #E4E6EF;
+            --bg-light: #F8F9FD;
+            --bg-dark: #2A2C3F;
+        }
+        
+        
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            display: none;
+            right: 45px;
+            bottom: 45px;
+            z-index: 99;
+        }
+        
+        h1, h2, h3, .fw-bold {
+            font-weight: 700 !important;
+            color: var(--dark);
+        }
+        
+        h4, h5, h6, .fw-medium {
+            font-weight: 500 !important;
+            /* color: var(--dark); */
+        }
+        
+        .btn {
+            font-weight: 500;
+            transition: .5s;
+            border-radius: 5px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark);
+            border-color: var(--dark);
+        }
+        
+        .hero-header {
+            background-color: var(--dark);
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-light .navbar-nav .nav-link {
+            position: relative;
+            margin-left: 25px;
+            padding: 25px 0;
+            color: var(--dark) !important;
+            font-weight: 500;
+            outline: none;
+            transition: .5s;
+        }
+        
+        .navbar-light .navbar-brand h1 {
+            color: var(--primary);
+        }
+        
+        .navbar-light .navbar-nav .nav-link:hover,
+        .navbar-light .navbar-nav .nav-link.active {
+            color: var(--primary) !important;
+        }
+        
+        .navbar-light .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 15px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .navbar-light .navbar-nav .nav-link:hover::after,
+        .navbar-light .navbar-nav .nav-link.active::after {
+            width: 100%;
+        }
+        
+        /* Base Styling */
+.stat-card {
+    border-radius: 12px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Hover Effect */
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* Typography */
+.stat-card .stat-value {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.stat-card .stat-title {
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* Border Accent */
+.stat-card.verified {
+    border-left: 6px solid var(--success-color);
+}
+
+.stat-card.suspicious {
+    border-left: 6px solid var(--warning-color);
+}
+
+.stat-card.fraudulent {
+    border-left: 6px solid var(--danger-color);
+}
+
+.stat-card.non-aadhaar {
+    border-left: 6px solid var(--neutral-color);
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+    .stat-card {
+        padding: 15px;
+    }
+    .stat-card .stat-value {
+        font-size: 28px;
+    }
+    .stat-card .stat-title {
+        font-size: 13px;
+    }
+}
+        
+
+
+        
+.table-card {
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.table-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.table-header {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 14px 20px;
+    font-weight: 600;
+}
+
+.table-body {
+    padding: 15px;
+}
+
+.table thead {
+    background-color: var(--primary);
+    color: white;
+}
+
+.table-hover tbody tr:hover {
+    background-color: var(--light);
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--dark);
+}
+
+.text-muted {
+    color: var(--text-light);
+}
+
+        
+        
+        
+        
+/* Success Badge - Blue */
+.badge-success {
+    background: linear-gradient(135deg, #1E88E5, #1565C0); /* Bright Blue */
+    color: white;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(30, 136, 229, 0.3);
+}
+
+/* Danger Badge - Purple */
+.badge-danger {
+    background: linear-gradient(135deg, #8E24AA, #6A1B9A); /* Deep Purple */
+    color: white;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(142, 36, 170, 0.3);
+}
+
+/* Warning Badge - Orange */
+.badge-warning {
+    background: linear-gradient(135deg, #FF7043, #D84315); /* Bright Orange */
+    color: white;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(255, 112, 67, 0.3);
+}
+
+/* Hover Effects */
+.badge-success:hover, .badge-danger:hover, .badge-warning:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+    transition: all 0.2s ease-in-out;
+}
+/* Border Accent */
+.stat-card.verified {
+    border-left: 6px solid var(--success-color);
+}
+
+.stat-card.suspicious {
+    border-left: 6px solid var(--warning-color);
+}
+
+.stat-card.fraudulent {
+    border-left: 6px solid var(--danger-color);
+}
+
+.stat-card.non-aadhaar {
+    border-left: 6px solid var(--neutral-color);
+}
+
+     
+/* Footer Background */
+.footer, .container-fluid.bg-primary {
+    background-color: var(--dark) !important;
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+
+/* Social Media Icons */
+.footer .btn.btn-social {
+    margin-right: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+}
+
+.footer .btn.btn-social:hover {
+    color: var(--dark);
+    background: var(--accent);
+}
+
+/* Quick Links */
+.footer .btn.btn-link {
+    display: block;
+    margin-bottom: 10px;
+    padding: 0;
+    text-align: left;
+    color: var(--light);
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+}
+
+.footer .btn.btn-link:hover {
+    color: var(--accent);
+    padding-left: 5px;
+}
+
+/* Footer Copyright */
+.footer .copyright {
+    padding: 20px 0;
+    font-size: 14px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Footer Menu */
+.footer-menu a {
+    color: var(--light);
+    margin-right: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+}
+
+.footer-menu a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+/* Section Titles */
+.section-title h6 {
+    position: relative;
+    display: inline-block;
+    text-transform: uppercase;
+    padding-right: 15px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.section-title h2 {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+/* Newsletter Input Box */
+.newsletter-box {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.newsletter-box input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--light);
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.newsletter-box input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.newsletter-box input:focus {
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Subscribe Button */
+.btn-subscribe {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-subscribe:hover {
+    background: var(--light);
+    color: var(--dark);
+}
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- Navbar & Hero Start -->
+        <header class="navbar-container">
+            <div class="brand">
+                <a href="index.html">
+                    <h1><i class="fa-solid fa-id-card"></i> Aadhar AI</h1>
+                </a>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-item active">Home</a>
+                <a href="upload.html" class="nav-item">Upload</a>
+                <a href="analytics.html" class="nav-item">Analytics</a>
+            </nav>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fa fa-bars"></i>
+            </button>
+        </header>
+        
+        <!-- Navbar Styling -->
+        <style>
+            .navbar-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: linear-gradient(135deg, #673ab7, #512da8);
+                padding: 15px 30px;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                position: relative;
+            }
+        
+            .brand a {
+                text-decoration: none;
+                color: #fff;
+            }
+        
+            .nav-links {
+                display: flex;
+                gap: 20px;
+            }
+        
+            .nav-item {
+                color: #fff;
+                font-size: 16px;
+                text-decoration: none;
+                padding: 8px 15px;
+                border-radius: 5px;
+                transition: background 0.3s ease-in-out;
+            }
+        
+            .nav-item:hover, .nav-item.active {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        
+            .menu-toggle {
+                display: none;
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 20px;
+                cursor: pointer;
+            }
+        
+            @media (max-width: 768px) {
+                .nav-links {
+                    display: none;
+                    flex-direction: column;
+                    position: absolute;
+                    top: 60px;
+                    right: 30px;
+                    background: rgba(0, 0, 0, 0.8);
+                    padding: 15px;
+                    border-radius: 10px;
+                }
+        
+                .nav-links a {
+                    display: block;
+                    padding: 10px;
+                    text-align: center;
+                }
+        
+                .menu-toggle {
+                    display: block;
+                }
+            }
+        </style>
+        
+        <script>
+            function toggleMenu() {
+                const nav = document.querySelector(".nav-links");
+                nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+            }
+        </script>
+        
+
+        <div class="container-xxl py-5 hero-header mb-5" style="background: linear-gradient(135deg, #3a0ca3, #240046);">
+            <div class="container my-5 py-5 px-lg-5 position-relative text-center">
+                <div class="row g-5 py-5">
+                    <div class="col-12">
+                        <h1 class="text-white animated fadeInDown">AI-Powered Insights</h1>
+                        <hr class="bg-light mx-auto mt-3" style="width: 100px; height: 3px; border-radius: 5px;">
+                        <p class="text-white-50 animated fadeInUp">Reports Generation </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+        <!-- Verification Analytics Dashboard -->
+<section class="analytics-dashboard">
+    <div class="container">
+        <!-- Header -->
+        <div class="dashboard-header text-center">
+            <div class="icon-container">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h2 class="dashboard-title">Verification Analytics</h2>
+            <p class="dashboard-subtitle">Monitor and analyze verification performance in real time.</p>
+        </div>
+
+        <!-- Batch Selection -->
+        <div class="batch-selection">
+            <label for="batchSelect" class="batch-label">Choose Verification Batch:</label>
+            <div class="dropdown-container">
+                <select id="batchSelect" class="batch-dropdown">
+                    <option disabled selected>Loading batches...</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Custom Styling -->
+<style>
+    .analytics-dashboard {
+        padding: 60px 0;
+        background: linear-gradient(135deg, #007bff, #6610f2);
+        color: white;
+        text-align: center;
+    }
+
+    .dashboard-header {
+        margin-bottom: 30px;
+    }
+
+    .icon-container {
+        font-size: 50px;
+        color: #fff;
+        margin-bottom: 15px;
+    }
+
+    .dashboard-title {
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .dashboard-subtitle {
+        font-size: 16px;
+        opacity: 0.8;
+    }
+
+    .batch-selection {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .batch-label {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    .dropdown-container {
+        width: 280px;
+    }
+
+    .batch-dropdown {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        background: white;
+        color: #333;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .batch-dropdown:hover {
+        background: #f1f1f1;
+    }
+</style>
+
+
+
+
+                
+                <!-- No Batch Alert -->
+<div class="row justify-content-center" id="noBatchAlert" style="display: none;">
+    <div class="col-lg-8 col-md-10">
+        <div class="alert alert-warning d-flex align-items-center p-4 shadow-sm rounded-3">
+            <i class="fas fa-exclamation-circle fs-4 me-3"></i>
+            <div>
+                <p class="mb-2 fw-semibold">No verification batches found. Please upload and verify Aadhaar cards first.</p>
+                <a href="upload.html" class="btn btn-primary px-4">Go to Upload & Verify</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+    .alert-warning {
+        background-color: #fff8e5;
+        border-left: 5px solid #ffc107;
+        color: #856404;
+    }
+    .alert i {
+        color: #ff9800;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-radius: 8px;
+    }
+    .fw-semibold {
+        font-weight: 600;
+    }
+</style>
+
+                
+                <!-- Results Container -->
+<div id="resultsContainer">
+    <!-- Statistics Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="stat-card verified shadow-sm">
+                <p class="stat-title">Verified</p>
+                <h3 class="stat-value text-success fw-bold" id="verifiedCount">0</h3>
+                <p class="small text-muted" id="verifiedPercent">(0%)</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="stat-card rejected shadow-sm">
+                <p class="stat-title">Suspicious</p>
+                <h3 class="stat-value text-warning fw-bold" id="suspiciousCount">0</h3>
+                <p class="small text-muted" id="suspiciousPercent">(0%)</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="stat-card fraudulent shadow-sm">
+                <p class="stat-title">Fraudulent</p>
+                <h3 class="stat-value text-danger fw-bold" id="fraudulentCount">0</h3>
+                <p class="small text-muted" id="fraudulentPercent">(0%)</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="stat-card total shadow-sm">
+                <p class="stat-title">Total Documents</p>
+                <h3 class="stat-value text-primary fw-bold" id="totalCardsCount">0</h3>
+                <p class="small text-muted">Non-Aadhaar: <span id="nonAadhaarCount">0</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                    
+                    <!-- Analytics Charts Section -->
+<section class="analytics-charts">
+    <div class="container">
+        <div class="row">
+            <!-- Verification Results Chart -->
+            <div class="col-lg-6">
+                <div class="chart-box">
+                    <div class="chart-header">
+                        <span class="chart-icon">&#128202;</span>
+                        <h4>Verification Breakdown</h4>
+                    </div>
+                    <div class="chart-content">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Score Distribution Chart -->
+            <div class="col-lg-6">
+                <div class="chart-box">
+                    <div class="chart-header">
+                        <span class="chart-icon">&#128200;</span>
+                        <h4>Score Distribution</h4>
+                    </div>
+                    <div class="chart-content">
+                        <canvas id="scoreDistributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modernized Unique Styling -->
+<style>
+    .analytics-charts {
+        padding: 50px 0;
+        background: linear-gradient(135deg, #eff3f6, #d9e2ec);
+    }
+
+    .chart-box {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        border-left: 5px solid #0d6efd;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .chart-box:hover {
+        transform: scale(1.03);
+    }
+
+    .chart-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 12px;
+        border-bottom: 3px solid #f0f0f0;
+    }
+
+    .chart-header h4 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .chart-icon {
+        font-size: 22px;
+        color: #0d6efd;
+    }
+
+    .chart-content {
+        padding-top: 15px;
+        text-align: center;
+    }
+
+    canvas {
+        width: 100% !important;
+        height: auto !important;
+    }
+</style>
+
+
+                    
+                   <!-- Enhanced Detailed Results Table -->
+<section class="detailed-results">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="custom-table-card shadow-lg">
+                    <div class="custom-table-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                        <h4 class="text-primary">Verification Details</h4>
+                        <button class="export-btn" id="exportResults">
+                            &#128229; Export Data
+                        </button>
+                    </div>
+                    <div class="custom-table-body">
+                        <div class="responsive-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th>Aadhaar Number</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Score</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="detailedResultsTable">
+                                    <tr>
+                                        <td colspan="6" class="no-data">Fetching records...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modernized Unique Styling -->
+<style>
+    .detailed-results {
+        padding: 60px 0;
+        background: #eef2f7;
+    }
+
+    .custom-table-card {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        border-top: 5px solid #3f51b5;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .custom-table-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .custom-table-header {
+        padding-bottom: 15px;
+        border-bottom: 2px solid #ccc;
+    }
+
+    .custom-table-header h4 {
+        font-size: 20px;
+        font-weight: bold;
+        color: #3f51b5;
+    }
+
+    .export-btn {
+        background: #3f51b5;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.3s ease-in-out;
+    }
+
+    .export-btn:hover {
+        background: #303f9f;
+    }
+
+    .responsive-table {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        background: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    table thead {
+        background: #3f51b5;
+        color: #ffffff;
+    }
+
+    table thead th {
+        padding: 14px;
+        text-align: center;
+    }
+
+    table tbody td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+
+    table tbody tr:nth-child(even) {
+        background: #f1f4ff;
+    }
+
+    .no-data {
+        text-align: center;
+        font-weight: bold;
+        color: #777;
+        padding: 20px;
+    }
+</style>
+
+
+
+           
+    
+    
+</div>
+
+</div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Analytics Dashboard End -->
+
+<!-- Footer Start -->
+<div class="container-fluid footer text-light mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s" style="background: #0F172A;">
+    <div class="container py-5 px-lg-5">
+        <div class="row g-4">
+            <!-- Contact Info -->
+            <div class="col-md-6 col-lg-4">
+                <h5 class="text-white mb-4">Contact Us</h5>
+               
+                <p><i class="fas fa-envelope me-2"></i> info@aadharai.com</p>
+                <div class="d-flex pt-3">
+                    <a class="btn btn-social me-2" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-social me-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-social me-2" href="#"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-social" href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-6 col-lg-4">
+                <h5 class="text-white mb-4">Links</h5>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('upload_page') }}">Upload</a></li>
+                    <li><a href="{{ url_for('analytics_page') }}">Analytics</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="col-md-6 col-lg-4">
+                <h5 class="text-white mb-4">Stay Updated</h5>
+                <p>Subscribe here with your mail id for AI based fraud detection updates</p>
+                <div class="newsletter-box d-flex">
+                    <input type="email" class="form-control me-2" placeholder="Your Email">
+                    <button class="btn btn-subscribe"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright & Footer Menu -->
+    <div class="container px-lg-5">
+        <div class="copyright text-center py-3">
+            <span>&copy; <a href="#">AadharAI</a>, All Rights Reserved.</span>
+            <div class="footer-menu mt-2">
+                <a href="#">Home</a>
+                <a href="#">Help</a>
+                <a href="#">FAQs</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+<style>
+    .footer {
+        background: #0F172A; /* Dark navy background */
+        color: #ffffff;
+    }
+    
+    .footer a {
+        color: #ffffff;
+        transition: 0.3s;
+    }
+    
+    .footer a:hover {
+        color: #00bcd4; /* Light blue on hover */
+        text-decoration: none;
+    }
+    
+    .footer-links {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .footer-links li {
+        margin-bottom: 8px;
+    }
+    
+    .footer-links a {
+        text-decoration: none;
+    }
+    
+    .btn-social {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        padding: 10px;
+        transition: 0.3s;
+    }
+    
+    .btn-social:hover {
+        background: #00bcd4;
+    }
+    
+    .newsletter-box {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 8px;
+        border-radius: 5px;
+    }
+    
+    .newsletter-box input {
+        border: none;
+        background: transparent;
+        color: white;
+    }
+    
+    .newsletter-box input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .btn-subscribe {
+        background: #00bcd4;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+    
+    .btn-subscribe:hover {
+        background: #008ba3;
+    }
+    </style>
+    
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+
+</body>
+</html>

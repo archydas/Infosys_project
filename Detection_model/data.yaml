@@ -1,0 +1,9 @@
+path: 'C:\Users\Archy\OneDrive\Desktop\Infosys_project\detection_model\data.yaml'
+train: 'C:\Users\Archy\OneDrive\Desktop\Infosys_project\detection_model\dataset\dataset\dataset\images\train'
+val: 'C:\Users\Archy\OneDrive\Desktop\Infosys_project\detection_model\dataset\dataset\dataset\images\val'
+
+
+names:
+  0: name
+  1: uid
+  2: address
